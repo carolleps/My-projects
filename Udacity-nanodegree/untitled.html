@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- saved from url=(0112)file:///home/lteixeira/Desktop/Portfolio/Toplist/bootstrap/bootstrap%20-%20exercicio/bootstrap-prestructure.html -->
+<html>
+  <head>
+  <script type="text/javascript">
+        var verbos = ['Beijou', 'Falou', 'Encontrou', 'Matou', 'Saiu', 'Comprou', 'Comeu'];
+        var herois = ['Hercules', 'Zeus', 'Ironman', 'Bino', 'Ariel', 'Elsa'];
+        var animais = ['Cobra', 'Passarinho', 'Coelho', 'Sapo', 'Cachorro', 'Leao', 'Gato'];
+        var sagas = [];
+        // var hero = herois[Math.floor(Math.random() * herois.length)];
+        var newSaga = function(hero){
+            var foil = animais[Math.floor(Math.random() * animais.length)];;
+            var f = function(){
+                var deed = verbos[Math.floor(Math.random() * verbos.length)];
+                console.log(hero+deed+foil);
+            }; 
+            foil = animais[Math.floor(Math.random() * animais.length)];;
+            return f
+        };
+        list = []
+        list.push(newSaga("Hercules");)
+        list.push(newSaga("Zeus");)
+        
+        
+
+        function say667() {
+            // Local variable that ends up within closure
+            var num = 42;
+            var say = function() { num++; console.log(num);  };
+
+            num++;
+            return say;
+            console.log(say);
+        }
+        say667()();
+        var sayNumber = say667();
+        sayNumber(); // logs 43
+        sayNumber();
+        say667();
+        say667();
+
+
+  </script>
+  </head>
+  <body>
+  </body>

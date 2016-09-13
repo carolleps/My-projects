@@ -1,0 +1,50 @@
+* {
+  font-family: "Lato", sans-serif;
+  color: #2d3c49;
+}
+
+h3 {
+  font-weight: 300;
+}
+
+h2 {
+  color: #7d97ad;
+}
+
+hr {
+  border: 2px solid;
+  color: #7d97ad;
+}
+
+.logo {
+  max-height: 100px;
+  margin-top: 15px;
+}
+
+[class*="brandico-"]:before {
+  font-family: "brandico", sans-serif;
+  color: black;
+  display: inline-block;
+  text-shadow: 3px 3px 3px #aaa;
+  width: 2em;
+  font-size: 20px;
+}
+
+section {
+  margin-bottom: 10px;
+}
+
+footer {
+  text-align: center;
+  line-height: 2em;
+}
+
+article, .modal-content {
+  margin: 0 auto;
+}
+
+@media (max-width: 1000px) {
+  .logo {
+    float: left;
+  }
+}

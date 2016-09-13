@@ -1,0 +1,45 @@
+/*
+
+Your styles go here!
+
+Hint! You'll probably want to start by styling:
+  * <body>
+  * <article>
+  * <h1>
+  * <img>
+
+I've left some boilerplate below for you.
+
+*/
+
+body {
+
+}
+
+article {
+    max-width: 800px;
+
+}
+
+h1 {
+
+}
+
+img {
+    max-width: 100%;
+
+}
+
+/* zocial */
+[class*="zocial-"]:before {
+    color: black;
+    display: inline-block;
+    font-family: 'zocial', sans-serif;
+    text-shadow: 3px 3px 3px #aaa;
+    width: 2em;
+}
+
+footer {
+    text-align: center;
+    line-height: 2em;
+}

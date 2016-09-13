@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="c" width="500" height="500" style="border: 1px solid"></canvas>
+
+<script>
+  var c = document.querySelector("#c");
+  var ctx = c.getContext("2d");
+
+  ctx.beginPath();
+  ctx.arc(200,200,25,0,Math.PI);
+  ctx.arc(225,200,50,Math.PI,0);
+  ctx.arc(175,200,100,0,Math.PI);
+  ctx.arc(275,200,200,Math.PI,0);
+  ctx.arc(75,200,400,0,Math.PI);
+  
+  ctx.shadowBlur=20;
+  ctx.shadowColor="black";
+  ctx.shadowOffsetX=20;
+  ctx.stroke();
+
+  
+  ctx.font="36pt Impact";
+  ctx.textAlign="center";
+  ctx.fillStyle="white";
+  ctx.fillText("Hello World!",c.width/2, c.height-10);
+
+  ctx.strokeStyle="black";
+  ctx.lineWidth="3";
+  ctx.strokeText("Hello World!",c.width/2, c.height-10);
+
+
+  
+
+</script>
+
+</body>
+</html>
