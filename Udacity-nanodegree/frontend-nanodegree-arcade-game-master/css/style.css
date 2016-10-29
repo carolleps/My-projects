@@ -1,3 +1,28 @@
 body {
     text-align: center;
 }
+
+h1 {
+    font-family: 'Pacifico', cursive;
+    color: deepskyblue;
+    text-shadow: 1px 1px 3px #aaa;
+}
+
+h2 {
+    font-family: 'Chewy', cursive;
+}
+
+.points {
+    font-family: 'Lato', sans-serif;
+}
+
+/* brandico */
+[class*="brandico-"]:before {
+  font-family: "brandico", sans-serif;
+  color: black;
+  display: inline-block;
+  text-shadow: 3px 3px 3px #aaa;
+  width: 2em;
+  font-size: 20px;
+  margin: 3px;
+}

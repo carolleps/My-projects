@@ -1,0 +1,9 @@
+.img-responsive {
+  display: block;
+  max-width: $width;
+  height: auto;
+  @media screen and (max-width: $third-breakpoint) {
+    margin: auto;
+    margin-top: 15px;
+  }
+}
