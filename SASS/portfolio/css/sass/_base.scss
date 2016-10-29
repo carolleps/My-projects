@@ -26,15 +26,38 @@ footer {
   line-height: 2em;
 }
 
+h1 {
+  font-weight: 500;
+  font-size: 36px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
 h2 {
   color: $text-color-secundary;
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 h3 {
-  font-weight: 300;
+  font-weight: 300;    
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 hr {
   border: 2px solid;
   color: $text-color-secundary;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
