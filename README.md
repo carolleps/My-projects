@@ -1,5 +1,5 @@
 # My-projects
-This is a folder with projects I've been working lately
+This is a repository with projects I've been working lately
 
 ## Portfolio
 Projects I consider to be a good sample of my knowledge 
