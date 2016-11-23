@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cat Clicker</title>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+    <script>
+        $( document ).ready(function() {
+            var objects = {
+                "animals": [
+                    {
+                        "name":"Doggy",
+                        "src": "https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426",
+                        "alt": "a dog",
+                        "clicks": "0"
+                    },
+                    {
+                        "name": "Kitty", 
+                        "src": "https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496",
+                        "alt": "a kitty",
+                        "clicks": "0"
+                    },
+                    {
+                        "name": "Nana",
+                        "src": "https://lh5.ggpht.com/LfjkdmOKkGLvCt-VuRlWGjAjXqTBrPjRsokTNKBtCh8IFPRetGaXIpTQGE2e7ZCUaG2azKNkz38KkbM_emA=s0#w=640&h=454",
+                        "alt": "a bunny",
+                        "clicks": "0"
+                    }]
+            };
+            
+            //buttons to display images
+            objects.display = function(){
+                objects.animals.forEach(function(name){
+                    var str = "<button class='tempClass' style='margin: 10px'>%data%</button>";
+                    $('#list').append(str.replace('%data%', name.name));
+                    $('.tempClass').addClass(name.name).removeClass('tempClass');
+
+                })
+            };
+            
+            objects.display();
+
+            $("button").click(function(){
+                var btnClass = $(this).attr("class");
+                var rightImg = $.grep(objects.animals, function(e){ return e.name == btnClass; });
+                // console.log(btnClass);
+                // console.log(rightImg[0]);
+                $("#name").text(btnClass);
+                $('img').attr({
+                    src: rightImg[0].src,
+                    alt: rightImg[0].alt,
+                    class: btnClass
+                });
+                $('#count').text(rightImg[0].clicks)
+            })
+
+            $("img").click(function(){
+                var imgClass = $(this).attr("class");
+                var rightImg = $.grep(objects.animals, function(e){ return e.name == imgClass; });
+                console.log(imgClass);
+                console.log(rightImg[0]);
+                
+                var count = rightImg[0].clicks;
+                count++;
+                $("#count").text(count);
+                rightImg[0].clicks = count;
+                // console.log(count);
+                // console.log(rightImg[0].clicks);
+            })
+
+            // Count clicks every time you click BUTTON, not image
+            // $("button").click(function(){
+            //     var btnClass = $(this).attr("class");
+            //     var rightImg = $.grep(objects.animals, function(e){ return e.name == btnClass; });
+            //     // console.log(btnClass);
+            //     // console.log(rightImg[0]);
+            //     $("#name").text(btnClass);
+            //     $('img').attr({
+            //         src: rightImg[0].src,
+            //         alt: rightImg[0].alt
+            //      });
+            //     var count = rightImg[0].clicks;
+            //     count++;
+            //     $("#count").text(count);
+            //     rightImg[0].clicks = count;
+            //     // console.log(count);
+            //     // console.log(rightImg[0].clicks);
+            // })
+            
+        });
+
+
+     </script>
+    <h1>Go on, click the cat</h1>
+    <ul id="list">
+    </ul>
+    <h1 id="name"></h1>
+    <img src="" alt="">
+    <h2> clicks so far:</h2>
+    <p id="count">0</p>
+</body>
+</html>

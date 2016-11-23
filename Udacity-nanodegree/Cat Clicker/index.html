@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cat Clicker</title>
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>    
+
+</head>
+<body>
+    <!-- <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script> -->
+    <script>
+        $( document ).ready(function() {
+            $("img").addClass("doggy");
+            $("h1").addClass("doggyName");
+            // $("p").addClass("countDoggy");
+            $("h2").after('<h3>Doggy Clicks: </h3><p class="countDoggy">0</p><h3>Kitty Clicks: </h3><p class="countKitty">0</p><h3>Total clicks</h3>');
+            $(".doggy").after('<h1 class="kittyName">Kitty</h1>');
+            $(".kittyName").after('<img src="https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496" alt="another cat" class="kitty">');
+            $(".doggyName").html("Doggy");
+            
+
+            //for Doggy image:
+            $(".doggy").click(function() {
+                var count = $(".countDoggy").text();
+                count++;
+                $(".countDoggy").html(count);
+            });
+
+            //for Kitty image:
+            $(".kitty").click(function() {
+                var count = $(".countKitty").text();
+                count++;
+                $(".countKitty").html(count);
+            });
+
+            //for both image:
+            $("img").click(function() {
+                var count = $("#count").text();
+                count++;
+                $("#count").html(count);
+            });
+        });
+
+
+     </script>
+    <h1>Go on, click the cat</h1>
+    <img src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="a cat">
+    <h2> clicks so far:</h2>
+    <p id="count">0</p>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+JO0

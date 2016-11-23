@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cat Clicker</title>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+    <script>
+        $( document ).ready(function() {
+            var objects = {
+                "animals": [
+                    {
+                        "name":"Doggy",
+                        "src": "https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426",
+                        "alt": "a dog",
+                        "clicks": "0"
+                    },
+                    {
+                        "name": "Kitty", 
+                        "src": "https://lh3.ggpht.com/kixazxoJ2ufl3ACj2I85Xsy-Rfog97BM75ZiLaX02KgeYramAEqlEHqPC3rKqdQj4C1VFnXXryadFs1J9A=s0#w=640&h=496",
+                        "alt": "a kitty",
+                        "clicks": "0"
+                    },
+                    {
+                        "name": "Nana",
+                        "src": "https://lh5.ggpht.com/LfjkdmOKkGLvCt-VuRlWGjAjXqTBrPjRsokTNKBtCh8IFPRetGaXIpTQGE2e7ZCUaG2azKNkz38KkbM_emA=s0#w=640&h=454",
+                        "alt": "a bunny",
+                        "clicks": "0"
+                    }]
+            };
+            
+            //buttons to display images
+            objects.display = function(){
+                objects.animals.forEach(function(name){
+                    var str = "<button class='list__cat' id='tempId' style='margin: 10px'>%data%</button>";
+                    $('#list').append(str.replace('%data%', name.name));
+                    $('#tempId').attr('id', name.name);
+
+                })
+            };
+            
+            objects.display();
+
+            $(".list__cat").click(function(){
+                var btnId = $(this).attr("id");
+                var rightImg = $.grep(objects.animals, function(e){ return e.name == btnId; });
+                // console.log(btnId);
+                // console.log(rightImg[0]);
+                $("#display-cat__name").text(btnId);
+                $('#display-cat__img').attr({
+                    src: rightImg[0].src,
+                    alt: rightImg[0].alt,
+                    class: btnId
+                });
+                $('#display-cat__count').text(rightImg[0].clicks)
+                //form data display
+                formData = function(){
+                    $("input[name='admin__cat-name']").val(btnId);
+                    $("input[name='admin__cat-url']").val(rightImg[0].src);
+                    $("input[name='admin__cat-alt").val(rightImg[0].alt);
+                    $("input[name='admin__cat-clicks").val(rightImg[0].clicks)
+                };
+                formData();
+            })
+
+            $(".admin__save").click(function(){
+                var name = $('#display-cat__name').val();
+                console.log(name);
+                name = $("input[name='admin__cat-name']").val();
+                console.log(name);
+            })
+
+
+            $("#display-cat__img").click(function(){
+                var imgClass = $(this).attr("class");
+                var rightImg = $.grep(objects.animals, function(e){ return e.name == imgClass; });
+                console.log(imgClass);
+                console.log(rightImg[0]);
+                
+                var count = rightImg[0].clicks;
+                count++;
+                $("#display-cat__count").text(count);
+                rightImg[0].clicks = count;
+                // console.log(count);
+                // console.log(rightImg[0].clicks);
+
+                //update the n of clicks at the form
+                $("input[name='admin__cat-clicks").val(count)
+
+
+            })
+
+            //init
+            $('#admin__form').css("display", "none");
+
+            $("#admin__btn").click(function(){
+                $('#admin__form').css("display", "block");
+            })
+
+            $('#admin__save').click(function(){
+                var name = $(admin__cat-name)
+            })
+
+         })   
+
+
+     </script>
+    <h1>Go on, click the cat</h1>
+    <ul id="list"></ul>
+    <div id="admin">
+        <button id="admin__btn">Admin</button>
+        <form id="admin__form">
+            <title>Admin</title>
+            <p>Cat Name: </p>
+            <input type="text" name="admin__cat-name">
+            <p>Cat image URL: </p>
+            <input type="text" name="admin__cat-url">
+            <p>Cat alt text: </p>
+            <input type="text" name="admin__cat-alt">
+            <p>Initial Click</p>
+            <input type="text" name="admin__cat-clicks">
+            <button class="admin__cancel">Cancel</button>
+            <button class="admin__save">Save</button>
+
+        </form>
+    </div>
+    <div id="display-cat">
+        <h1 id="display-cat__name"></h1>
+        <img id="display-cat__img" src="" alt="">
+        <h2> clicks so far:</h2>
+        <p id="display-cat__count">0</p>
+    </div>
+
+</body>
+</html>
