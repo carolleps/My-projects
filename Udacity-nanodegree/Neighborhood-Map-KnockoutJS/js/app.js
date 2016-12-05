@@ -35,6 +35,8 @@ function initMap(){
     {
       name:"NNC Pro Beauty",
       location: {lat: -33.8775868, lng: 151.2166922},
+      lat: "-33.8775868",
+      lng: "151.2166922",
       placeid: "56821297498eb126410047f8",
       type: ["hair", "nails", "eyebrow"]
     },
@@ -97,9 +99,19 @@ function initMap(){
 
   // Adding FourSquare Api info to a marker          
   function addFourSquareApi(marker){
+    var CLIENT_ID = "CELRLYF4G3HUCWR13FCSDQWBFFRMMQB4N4AG2V1CLE1033RA";
+    var CLIENT_SECRET = "HZI32FORJWCCUAEB5ZBDKHURVHVLVGDEDUJ1AKX21BYMB20Q";
     $.ajax({
-      url: 'https://api.foursquare.com/v2/venues/' + marker.placeid + '?client_id=CELRLYF4G3HUCWR13FCSDQWBFFRMMQB4N4AG2V1CLE1033RA&client_secret=HZI32FORJWCCUAEB5ZBDKHURVHVLVGDEDUJ1AKX21BYMB20Q',
-      dataType:'json',
+      // url: 'https://api.foursquare.com/v2/venues/' + marker.placeid + '?client_id=CELRLYF4G3HUCWR13FCSDQWBFFRMMQB4N4AG2V1CLE1033RA&client_secret=HZI32FORJWCCUAEB5ZBDKHURVHVLVGDEDUJ1AKX21BYMB20Q'
+      url:'https://api.foursquare.com/v2/venues/search',
+      dataType: 'json',
+      data: 'limit=1' +
+          '&ll=' + marker.lat + ', ' + marker.lng +
+          '&query=' + marker.placeid +
+          '&client_id='+ CLIENT_ID +
+          '&client_secret='+ CLIENT_SECRET +
+          '&v=20130815',
+
       async: true,
       success: function(data){
         console.log('success');
