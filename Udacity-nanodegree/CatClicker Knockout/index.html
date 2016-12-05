@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cat Clicker</title>
+    <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
+
+</head>
+<body>
+
+    <script>
+            
+
+            // var vm = function(){
+            //     this.name = ko.observable('Carolle');
+            //     this.count = ko.observable(0);
+            //     this.src = ko.observable('https://lh5.ggpht.com/LfjkdmOKkGLvCt-VuRlWGjAjXqTBrPjRsokTNKBtCh8IFPRetGaXIpTQGE2e7ZCUaG2azKNkz38KkbM_emA=s0#w=640&h=454')
+            // }
+
+            // ko.applyBindings(new vm());
+   
+
+
+     </script>
+
+    <h1>Go on, click the cat</h1>
+    <!-- <ul id="list"></ul>
+    <div id="admin">
+        <button id="admin__btn">Admin</button>
+        <form id="admin__form">
+            <title>Admin</title>
+            <p>Cat Name: </p>
+            <input type="text" name="admin__cat-name">
+            <p>Cat image URL: </p>
+            <input type="text" name="admin__cat-url">
+            <p>Cat alt text: </p>
+            <input type="text" name="admin__cat-alt">
+            <p>Initial Click</p>
+            <input type="text" name="admin__cat-clicks">
+            <button class="admin__cancel">Cancel</button>
+            <button class="admin__save">Save</button>
+
+        </form>
+    </div> -->
+    <ul data-bind="foreach: catArray"> 
+            <button data-bind="text: name, click: $parent.setCat"> </button>
+    </ul>
+    <div data-bind="with: currentView">
+        <!-- from now on, all data-bind in this div refer to currentview() binding context -->
+        <h1 data-bind="text: name"></h1> 
+        <h3 data-bind="text: nickname"></h3>
+        <h4 data-bind="text: level"></h4>
+        <!-- $parent makes scape from the scope and select out of currentView-->    
+        <img src="" alt="" data-bind="click: $parent.incrementCounter, attr: {src: imgSrc, alt: alt}">
+        <h2> clicks so far:</h2> 
+        <p data-bind="text: count">0</p>
+    </div>
+
+    <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.4.1.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+
+</body>
+</html>
