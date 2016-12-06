@@ -15,42 +15,42 @@ function initMap(){
   var model = [
     {
       name:"Bah BQ Brazilian Grill",
-      location: {lat: -33.8241738, lng: 151.1993332},
-      lat: "-33.8241738",
-      lng: "151.1993332",
+      location: {lat: -33.82405207385705, lng: 151.201379540971},
+      lat: "-33.82405207385705",
+      lng: "151.201379540971",
       placeid: "4e562ce2d164a0684c5ad03a",
       type: ["food"]
     },
     {
       name:"Cafecito",
-      location: {lat: -33.8732475, lng: 151.2030512},
-      lat: "-33.8732475",
-      lng: "151.2030512",
+      location: {lat: -33.87388778270155, lng: 151.20540911285022},
+      lat: "-33.87388778270155",
+      lng: "151.20540911285022",
       placeid: "4b74c8a0f964a520dbf12de3",
       type: ["food"]
     },
     {
       name:"Hair by Marcia Bento",
-      location: {lat: -33.9533515, lng: 151.135525},
-      lat: "-33.9533515",
-      lng: "151.135525",
+      location: {lat: -33.95293965661399, lng: 151.1367838450086},
+      lat: "-33.95293965661399",
+      lng: "151.1367838450086",
       placeid: "5656ba8d498ef1ac55b4a618",
       type: ["hair", "nails", "eyebrow"]
     },
 
     {
       name:"NNC Pro Beauty",
-      location: {lat: -33.8775868, lng: 151.2166922},
-      lat: "-33.8775868",
-      lng: "151.2166922",
+      location: {lat: -33.877589, lng: 151.216761},
+      lat: "-33.877589",
+      lng: "151.216761",
       placeid: "56821297498eb126410047f8",
       type: ["hair", "nails", "eyebrow"]
     },
     {
       name:"Ovo Cafe",
-      location: {lat: -33.8786941, lng: 151.2114242},
-      lat: "-33.8786941",
-      lng: "151.2114242",
+      location: {lat: -33.878679, lng: 151.213620},
+      lat: "-33.878679",
+      lng: "151.213620",
       placeid: "51d63b93498ee198deb6ba5d",
       type: ["food"]
     },
@@ -115,33 +115,39 @@ function initMap(){
     var CLIENT_SECRET = "HZI32FORJWCCUAEB5ZBDKHURVHVLVGDEDUJ1AKX21BYMB20Q";
     $.ajax({
       // url: 'https://api.foursquare.com/v2/venues/' + marker.placeid + '?client_id=CELRLYF4G3HUCWR13FCSDQWBFFRMMQB4N4AG2V1CLE1033RA&client_secret=HZI32FORJWCCUAEB5ZBDKHURVHVLVGDEDUJ1AKX21BYMB20Q'
-      url:'https://api.foursquare.com/v2/venues/search',
+      url:'https://api.foursquare.com/v2/venues/' + marker.placeid,
       dataType: 'json',
       data: 'limit=1' +
-          '&ll=' + marker.lat + ',' + marker.lng +
-          '&query=' + marker.placeid +
+      //     '&ll=' + marker.lat + ',' + marker.lng +
+      //     '&query=' + marker.placeid +
           '&client_id='+ CLIENT_ID +
           '&client_secret='+ CLIENT_SECRET +
-          '&v=20130815',
+          '&v=20161206',
 
       async: true,
       success: function(data){
         console.log('success');
-        console.log(marker);
+        // console.log(marker);
+        if (data.response.hasOwnProperty('venue')){
+          var result = data.response.venue;
+          marker.photo = result.hasOwnProperty('bestPhoto')? result.bestPhoto.prefix + '200x200' + result.bestPhoto.suffix: '';
+          marker.likes = result.hasOwnProperty('likes')? result.likes.summary: '';
+          marker.rating = result.hasOwnProperty('rating')? result.rating: ''; 
+          marker.url = result.hasOwnProperty('url')? result.url: '';
+          // console.log(marker);
 
-        var result = data.response.hasOwnProperty('venues')? data.response.venues[0] : '';
-        marker.photo = result.hasOwnProperty('bestPhoto')? result.bestPhoto.prefix + '200x200' + result.bestPhoto.suffix: '';
-        marker.likes = result.hasOwnProperty('likes')? result.likes.summary: '';
-        marker.rating = result.hasOwnProperty('rating')? result.rating: ''; 
-        marker.url = result.hasOwnProperty('url')? result.url: ''; 
-        console.log(marker);
-
-        marker.phone = result.contact.hasOwnProperty('formattedPhone')? result.contact.formattedPhone: ''; 
-        if (result.location.hasOwnProperty('formattedAddress')){
-          marker.address =[];
-          for(var i = 0; i < result.location.formattedAddress.length; i++){
-            marker.address = marker.address + result.location.formattedAddress.shift() + ' ';
+          if (result.hasOwnProperty('contact')) {
+            marker.phone = result.contact.hasOwnProperty('formattedPhone')? result.contact.formattedPhone: ''; 
           }
+
+          if (result.location.hasOwnProperty('formattedAddress')){
+            marker.address =[];
+            for(var i = 0; i < result.location.formattedAddress.length; i++){
+              marker.address = marker.address + result.location.formattedAddress.shift() + '';
+            }
+          }
+          console.log(marker);
+
         }
 
       },
