@@ -127,9 +127,9 @@ function initMap(){
       async: true,
       success: function(data){
         console.log('success');
-                console.log(marker);
+        console.log(marker);
 
-        var result = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
+        var result = data.response.hasOwnProperty('venues')? data.response.venues[0] : '';
         marker.photo = result.hasOwnProperty('bestPhoto')? result.bestPhoto.prefix + '200x200' + result.bestPhoto.suffix: '';
         marker.likes = result.hasOwnProperty('likes')? result.likes.summary: '';
         marker.rating = result.hasOwnProperty('rating')? result.rating: ''; 
@@ -193,6 +193,31 @@ var ViewModel = function(){
   self.selectPlace = function(marker){
     populateInfoWindow(marker, infoWindow);
   };
+
+
+  //function for changing sidebar
+  self.visibleSidebar = ko.observable(false),
+
+  self.hideSidebar = function() {
+    self.visibleSidebar(false);
+    return true;
+  }
+
+  self.openSidebar = function () {
+    var oppositeSidebarState = !( self.visibleSidebar() );
+    self.visibleSidebar(oppositeSidebarState);
+    return true;
+  }
+
+  //foursquare error ko
+  self.showMessage = ko.observable(false);
+  self.showMapMessage = ko.observable(false);
+
+
+
+
+
+
 
 }
 
