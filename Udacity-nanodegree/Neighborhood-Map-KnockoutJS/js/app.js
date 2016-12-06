@@ -16,18 +16,24 @@ function initMap(){
     {
       name:"Bah BQ Brazilian Grill",
       location: {lat: -33.8241738, lng: 151.1993332},
+      lat: "-33.8241738",
+      lng: "151.1993332",
       placeid: "4e562ce2d164a0684c5ad03a",
       type: ["food"]
     },
     {
       name:"Cafecito",
       location: {lat: -33.8732475, lng: 151.2030512},
+      lat: "-33.8732475",
+      lng: "151.2030512",
       placeid: "4b74c8a0f964a520dbf12de3",
       type: ["food"]
     },
     {
       name:"Hair by Marcia Bento",
       location: {lat: -33.9533515, lng: 151.135525},
+      lat: "-33.9533515",
+      lng: "151.135525",
       placeid: "5656ba8d498ef1ac55b4a618",
       type: ["hair", "nails", "eyebrow"]
     },
@@ -43,6 +49,8 @@ function initMap(){
     {
       name:"Ovo Cafe",
       location: {lat: -33.8786941, lng: 151.2114242},
+      lat: "-33.8786941",
+      lng: "151.2114242",
       placeid: "51d63b93498ee198deb6ba5d",
       type: ["food"]
     },
@@ -58,13 +66,15 @@ function initMap(){
   } 
 
   for(var i = 0; i< model.length; i++){
-    var location = model[i].location; //latlng
+    var location = model[i].location; //latlng Maps API
+    var lat = model[i].lat; //lat Foursquare API
+    var lng = model[i].lng; //lng Foursquare API
     var name = model[i].name;
-    var address = model[i].address;
-    var phone = model[i].phone;
-    var website = model[i].website;
+    // var address = model[i].address;
+    // var phone = model[i].phone;
+    // var website = model[i].website;
     var category = model[i].type;
-    var placeid = model[i].placeid; // FourSquare Api id
+    var placeid = model[i].placeid; // FourSquare API id
 
 
     var marker = new google.maps.Marker({
@@ -74,6 +84,8 @@ function initMap(){
       icon: defaultIcon,
       title: name,
       placeid: placeid,
+      lat: lat,
+      lng: lng,
       // address: address,
       // phone: phone,
       // website: website,
@@ -90,7 +102,7 @@ function initMap(){
         this.setIcon(defaultIcon);
     })    
 
-    addFourSquareApi(this);
+    addFourSquareApi(marker);
 
     marker.addListener('click', function(){
         populateInfoWindow(this, infoWindow);
@@ -106,7 +118,7 @@ function initMap(){
       url:'https://api.foursquare.com/v2/venues/search',
       dataType: 'json',
       data: 'limit=1' +
-          '&ll=' + marker.lat + ', ' + marker.lng +
+          '&ll=' + marker.lat + ',' + marker.lng +
           '&query=' + marker.placeid +
           '&client_id='+ CLIENT_ID +
           '&client_secret='+ CLIENT_SECRET +
@@ -115,11 +127,15 @@ function initMap(){
       async: true,
       success: function(data){
         console.log('success');
-        var result = data.response.venue;
+                console.log(marker);
+
+        var result = data.response.hasOwnProperty("venues") ? data.response.venues[0] : '';
         marker.photo = result.hasOwnProperty('bestPhoto')? result.bestPhoto.prefix + '200x200' + result.bestPhoto.suffix: '';
         marker.likes = result.hasOwnProperty('likes')? result.likes.summary: '';
         marker.rating = result.hasOwnProperty('rating')? result.rating: ''; 
         marker.url = result.hasOwnProperty('url')? result.url: ''; 
+        console.log(marker);
+
         marker.phone = result.contact.hasOwnProperty('formattedPhone')? result.contact.formattedPhone: ''; 
         if (result.location.hasOwnProperty('formattedAddress')){
           marker.address =[];
@@ -127,12 +143,14 @@ function initMap(){
             marker.address = marker.address + result.location.formattedAddress.shift() + ' ';
           }
         }
+
       },
       error: function(error){
         var errorInfowindow = new google.maps.InfoWindow();
         errorInfowindow.marker = marker;
         errorInfowindow.setContent("<div><p>Sorry something went wrong..</p></div>");
         errorInfowindow.open(map, marker);
+        console.log(marker);
       }
     });
   }

@@ -1,23 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brazilian services downunder</title>
+    <link type="text/css" src="css/bootstrap.min.css">
 </head>
 <body>
     <!-- CSS -->
     <style type="text/css">
-      html,
-      body {
-        font-family: Arial, sans-serif;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
 
-      .container {
+      /*.container {
         height: 100%;
         position: relative;
-      }
+      }*/
          
       #map { 
         bottom:0px;
@@ -39,11 +35,11 @@
     </style>
 
     <!-- HTML -->
-    <div class="container">
+    <div class="container-fluid">
       <div class="options-box">
         <h1>Brazilian style services in the land downunder</h1>
         <div>
-          <input id="show-listings" type="button" value="Show Listings" data-bind="click: showListings">
+          <input class="btn btn-default" id="show-listings" type="button" value="Show Listings" data-bind="click: showListings">
           <input id="hide-listings" type="button" value="Hide Listings" data-bind="click: hideListings">
         </div>
         <hr>
