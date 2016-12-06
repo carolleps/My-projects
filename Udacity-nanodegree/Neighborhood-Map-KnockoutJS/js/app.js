@@ -70,13 +70,10 @@ function initMap(){
     var lat = model[i].lat; //lat Foursquare API
     var lng = model[i].lng; //lng Foursquare API
     var name = model[i].name;
-    // var address = model[i].address;
-    // var phone = model[i].phone;
-    // var website = model[i].website;
     var category = model[i].type;
     var placeid = model[i].placeid; // FourSquare API id
 
-
+    // creates marker with info from google api and model
     var marker = new google.maps.Marker({
       map: map,
       position: location,
@@ -86,9 +83,6 @@ function initMap(){
       placeid: placeid,
       lat: lat,
       lng: lng,
-      // address: address,
-      // phone: phone,
-      // website: website,
       category: category
     });
 
@@ -127,7 +121,7 @@ function initMap(){
       async: true,
       success: function(data){
         console.log('success');
-        // console.log(marker);
+        // check if venue exists before create properties
         if (data.response.hasOwnProperty('venue')){
           var result = data.response.venue;
           marker.photo = result.hasOwnProperty('bestPhoto')? result.bestPhoto.prefix + '200x200' + result.bestPhoto.suffix: '';
@@ -147,9 +141,7 @@ function initMap(){
             }
           }
           console.log(marker);
-
         }
-
       },
       error: function(error){
         var errorInfowindow = new google.maps.InfoWindow();
@@ -161,14 +153,12 @@ function initMap(){
     });
   }
 
+  // knockout binding
   ko.applyBindings(new ViewModel());
 
+  // listeners to show and hide markers 
   document.getElementById('show-listings').addEventListener('click', showListings);
   document.getElementById('hide-listings').addEventListener('click', hideListings);
-
-  // Two event listeners - one for mouseover, one for mouseout,
-  // to change icon back and forth.
-  
 }
 
 
@@ -218,22 +208,9 @@ var ViewModel = function(){
   //foursquare error ko
   self.showMessage = ko.observable(false);
   self.showMapMessage = ko.observable(false);
-
-
-
-
-
-
-
 }
 
-
-  
-    
-
-
-   
-
+  // fill the selected infowindow with data from APIs
   function populateInfoWindow(marker, infowindow){
     // Check to make sure the infowindow is not already opened on this marker.
     if (infowindow.marker != marker) {
@@ -241,7 +218,7 @@ var ViewModel = function(){
         '<h3>' + marker.title + '</h3>'+
         '<div><p><strong>Address: </strong>' + marker.address + '</p>' +
         '<p><strong>Phone: </strong>' + marker.phone + '</p>' +
-        '<p><strong>Website: </strong><a target="_blank" href="' + marker.url + '">'+ marker.website + '</a></p>'+
+        '<p><strong>Website: </strong><a target="_blank" href="' + marker.url + '">'+ marker.url + '</a></p>'+
         '<p><strong>Services: </strong>' + marker.category + '</p>' +
         '<p>' + 'Rating: ' + marker.rating + '/10, ' + marker.likes + '</p>' + 
         '<img id="infowindow-image" src=' + marker.photo + ' /></div>'
@@ -260,6 +237,7 @@ var ViewModel = function(){
     zoomToArea();
   };
   
+  //when the button to show markers is clicked
   function showListings() {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
@@ -281,13 +259,7 @@ var ViewModel = function(){
     alert('Google map did not load correctly. Please try it again');
   }
 
-
-
-
- 
-
-
-// This function takes the input value in the find nearby area text input
+// takes the input value in the find nearby area text input
 // locates it, and then zooms into that area. This is so that the user can
 // show all listings, then decide to focus on one area of the map.
 function zoomToArea() {

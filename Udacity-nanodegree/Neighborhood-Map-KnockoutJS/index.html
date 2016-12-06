@@ -1,251 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Brazilian services downunder</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brazilian services in the land downunder</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-    <!-- CSS -->
-    <style type="text/css">
-
-      /*.container {
-        height: 100%;
-        position: relative;
-      }*/
-         
-      /*#map { 
-        bottom:0px;
-        height: 80%;
-        left: 362px;
-        position: absolute;
-        right: 0px;
-      }
-      .options-box {
-        background: #fff;
-        border: 1px solid #999;
-        border-radius: 3px;
-        height: 100%;
-        line-height: 35px;
-        padding: 10px 10px 30px 10px;
-        text-align: left;
-        width: 340px;
-        font-family: 'Asap', sans-serif;
-  
-      }
-      li:hover{
-        background-color: #3f3f3d;
-      }
-
-      .error{
-        color:gray;
-        margin-top: 0px;
-      }
-*/
-
-body {
-  height: 100%;
-  background-color: #ffcc00;
-}
-
-h1 {
-  font-size: 2.5em;
-  color: #252525;
-}
-
-h2 {
-  font-size: 1.8em;
-  text-align: center;
-}
-
-h4 {
-  font-size: 0.7em;
-  text-align: center;
-}
-
-h3 {
-  font-size: 1.5em;
-
-}
-
-input {
-  width: 90%;
-}
-
-li {
-  text-indent: 0px;
-  line-height: 30px;
-  display: block;
-  text-decoration: none;
-  color: #F0C595;
-}
-
-li:hover {
-  text-decoration: none;
-  color: #fff;
-  background: rgba(255,255,255,0.2);
-}
-
-.btn {
-  margin-left: 10px;
-  margin-top: 6px;
-}
-
-.container {
-  height: 100%;
-  width: 100%;
-  padding: 0px;
-}
-
-.header {
-  text-align: center;
-}
-
-#map {
-  height: 450px;
-  width: 100%;
-}
-.error {
-  text-align: center;
-  color: purple;
-}
-
-#menu-toggle {
-  float: right;
-}
-
-#sidebar-wrapper.toggled {
-  width: 250px;
-}
-
-
-#sidebar-wrapper {
-  z-index: 1000;
-  position: fixed;
-  left: 250px;
-  width: 0;
-  height: 100%;
-  margin-left: -250px;
-  overflow-y: auto;
-  background: green;
-  -webkit-transition: all 0.5s ease;
-  -moz-transition: all 0.5s ease;
-  -o-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-#page-content-wrapper {
-  width: 100%;
-  position: absolute;
-  padding: 5px;
-}
-
-
-
-
-/*@media(min-width:768px) {
-  #wrapper {
-    padding-left: 250px;
-  }
-  #sidebar-wrapper {
-    width: 250px;
-  }
-  #wrapper.toggled {
-    padding-left: 0;
-  }
-  #page-content-wrapper {
-    padding: 5px;
-    position: relative;
-  }
-  #wrapper.toggled #page-content-wrapper {
-    position: relative;
-    margin-right: 0;
-  }
-}*/
-
-@media only screen and (max-width : 600px)
-{
-  h1 {
-    font-size: 1.5em;
-  }
-
-  h2 {
-    font-size: 1em;
-    margin-top: 10px;
-  }
-
-  #map {
-    width: 100%;
-  }
-
-  /*#sidebar-wrapper {
-    width:0;
-  }*/
- }
-
-    </style>
-
-    <!-- HTML -->
-    <div class="container-fluid">
-      <div class="header row">
-        <!-- top -->
-        <div class="col-md-12">
-          <hr>
-          <h1>Brazilian style services in the land downunder</h1>
-          <hr>
-          <button id="menu-toggle" class="btn btn-info" data-bind="click: openSidebar">
-            ☰
-          </button>
+  <div class="container-fluid">
+    <div class="header row">
+      <!-- top -->
+      <div class="col-md-12">
+        <hr>
+        <h1>Brazilian style services in the land downunder</h1>
+        <hr>
+        <button id="menu-toggle" class="btn btn-info" data-bind="click: openSidebar">
+          ☰
+        </button>
+      </div>
+      <div class ="error" data-bind="visible: showMessage">
+        <h4>Foursquare data is unavailable. Please try refreshing the page.</h4>
+      </div>
+      <div  class ="error" data-bind="visible: showMapMessage" >
+        <h4>Google Maps is not loading. Please try refreshing the page.</h4>
+      </div>
+    </div>
+    <!-- sidebar -->
+    <div id="wrapper">
+      <div id="sidebar-wrapper" data-bind="css: {'toggled':  visibleSidebar}, click:null, clickBubble: false" >
+        <div>
+          <input class="btn btn-default" id="show-listings" type="button" value="Show Listings" data-bind="click: showListings">
+          <input class="btn btn-default" id="hide-listings" type="button" value="Hide Listings" data-bind="click: hideListings">
         </div>
-        <div class ="error" data-bind="visible: showMessage">
-          <h4>Foursquare data is unavailable. Please try refreshing the page.</h4>
+        <hr>
+        <div>
+          <h3>Search by postcode!</h3>
+          <input id="zoom-to-area-text" type="text" placeholder="Ex: 2000">
+          <input class="btn btn-default" id="zoom-to-area" type="button" value="Zoom" data-bind="click: zoom">
         </div>
-        <div  class ="error" data-bind="visible: showMapMessage" >
-          <h4>Google Maps is not loading. Please try refreshing the page.</h4>
+        <hr>
+        <div>
+          <h3>Filter your result!</h3>
+          <input type="search" id="places-search" placeholder="Ex: NNC" data-bind="textInput: query">
+          <ul data-bind="foreach: search">
+            <li class="list-view" data-bind="text: title, click: $parent.selectPlace"></li>
+          </ul>
+        </div>
+        <hr>
+        <div class="footer">
+          <p>This project was developed by Carolle Piedade</p>
+          <p>Maps Icons Collection <a href="https://mapicons.mapsmarker.com"><img src="img/iconCredit.gif"></a></p>
         </div>
       </div>
-      <!-- sidebar -->
-      <div id="wrapper">
-        <div id="sidebar-wrapper" data-bind="css: {'toggled':  visibleSidebar}, click:null, clickBubble: false" >
-          <div>
-            <input class="btn btn-default" id="show-listings" type="button" value="Show Listings" data-bind="click: showListings">
-            <input class="btn btn-default" id="hide-listings" type="button" value="Hide Listings" data-bind="click: hideListings">
-          </div>
-          <hr>
-          <div>
-            <h3>Search by postcode!</h3>
-            <input id="zoom-to-area-text" type="text" placeholder="Ex: 2000">
-            <input class="btn btn-default" id="zoom-to-area" type="button" value="Zoom" data-bind="click: zoom">
-          </div>
-          <hr>
-          <div>
-            <h3>Filter your result!</h3>
-            <input type="search" id="places-search" placeholder="Ex: NNC" data-bind="textInput: query">
-            <ul data-bind="foreach: search">
-              <li class="list-view" data-bind="text: title, click: $parent.selectPlace"></li>
-            </ul>
-          </div>
-          <hr>
-          <div class="footer">
-            <p>This project was developed by Carolle Piedade</p>
-            <p>Maps Icons Collection <a href="https://mapicons.mapsmarker.com"><img src="img/iconCredit.gif"></a></p>
-          </div>
+      <!-- map -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid col-md-12" data-bind="click: hideSidebar">
+          <div id="map"></div> 
         </div>
-        <!-- map -->
-        <div id="page-content-wrapper">
-          <div class="container-fluid col-md-12" data-bind="click: hideSidebar">
-            <div id="map"></div> 
-          </div>
-        </div>
-      </div> 
-    </div>
+      </div>
+    </div> 
+  </div>
     
 
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.4.1.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry&v=3&key=AIzaSyDBKXtS615skwqrEH47eN22DtC85mOlIxo&callback=initMap">
-   </script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="http://knockoutjs.com/downloads/knockout-3.4.1.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?libraries=geometry&v=3&key=AIzaSyDBKXtS615skwqrEH47eN22DtC85mOlIxo&callback=initMap">
+  </script>
 </body>
 </html>
