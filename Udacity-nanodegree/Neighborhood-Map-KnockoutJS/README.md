@@ -3,7 +3,7 @@
 
 ### Intro section
 
-This project is part of the Udacity Front End Development Nanodegree. The purpose was to create a responsive map web application using APIs, javascript and knockout.js.
+This project is part of the Udacity Front End Developer Nanodegree. The purpose was to create a responsive map web application using APIs, javascript and knockout.js.
 
 ### Main Functions
 * User can explore Brazilian style services in Sydney

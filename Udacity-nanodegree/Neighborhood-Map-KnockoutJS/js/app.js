@@ -1,7 +1,7 @@
-var map;
-var defaultIcon = "img/icon-default.png";
-var hoverIcon = "img/icon-hover.png";
-var markers = [];
+var map,
+    defaultIcon = 'img/icon-default.png',
+    hoverIcon = 'img/icon-hover.png',
+    markers = [];
 
 
 // ViewModel
@@ -94,13 +94,11 @@ function initMap(){
 
     marker.addListener('mouseout', function() {
         this.setIcon(defaultIcon);
-    })    
+    });
 
     addFourSquareApi(marker);
 
-    marker.addListener('click', function(){
-        populateInfoWindow(this, infoWindow);
-    });
+    
   }
 
   // Adding FourSquare Api info to a marker          
@@ -124,14 +122,19 @@ function initMap(){
         // check if venue exists before create properties
         if (data.response.hasOwnProperty('venue')){
           var result = data.response.venue;
-          marker.photo = result.hasOwnProperty('bestPhoto')? result.bestPhoto.prefix + '200x200' + result.bestPhoto.suffix: '';
-          marker.likes = result.hasOwnProperty('likes')? result.likes.summary: '';
-          marker.rating = result.hasOwnProperty('rating')? result.rating: ''; 
+          marker.photo = result.hasOwnProperty('bestPhoto')? result.bestPhoto.prefix + '200x200' + result.bestPhoto.suffix: 'img/sorry.jpg';
+          if (result.likes.hasOwnProperty('summary')){
+            marker.likes = result.likes.summary
+          }
+          else{
+            marker.likes = "no likes so far"
+          }
+          marker.rating = result.hasOwnProperty('rating')? result.rating +'/10': 'no rating so far'; 
           marker.url = result.hasOwnProperty('url')? result.url: '';
           // console.log(marker);
 
           if (result.hasOwnProperty('contact')) {
-            marker.phone = result.contact.hasOwnProperty('formattedPhone')? result.contact.formattedPhone: ''; 
+            marker.phone = result.contact.hasOwnProperty('formattedPhone')? result.contact.formattedPhone: 'not provided'; 
           }
 
           if (result.location.hasOwnProperty('formattedAddress')){
@@ -141,6 +144,34 @@ function initMap(){
             }
           }
           console.log(marker);
+        }
+
+        marker.content = '<h3>' + marker.title + '</h3>'+
+        '<div><p><strong>Address: </strong>' + marker.address + '</p>' +
+        '<p><strong>Phone: </strong>' + marker.phone + '</p>' +
+        '<p><strong>Website: </strong><a target="_blank" href="' + marker.url + '">'+ marker.url + '</a></p>'+
+        '<p><strong>Services: </strong>' + marker.category + '</p>' +
+        '<p><strong>Rating: </strong>' + marker.rating + ' - ' + marker.likes + '</p>' + 
+        '<img id="infowindow-image" src=' + marker.photo + ' /></div>'
+        
+        marker.addListener('click', function(){
+            populateInfoWindow(this, infoWindow);
+        });
+        
+        // fill the selected infowindow with data from APIs
+        function populateInfoWindow(marker, infowindow){
+          // Check to make sure the infowindow is not already opened on this marker.
+          if (infowindow.marker != marker) {
+            infowindow.setContent(marker.content);          
+            marker.setIcon(hoverIcon);
+            infowindow.marker = marker;
+            // Make sure the marker property is cleared if the infowindow is closed.
+            infowindow.addListener('closeclick', function() {
+              infowindow.marker = null;
+              marker.setIcon(defaultIcon);
+            });
+            infowindow.open(map, marker);
+          }
         }
       },
       error: function(error){
@@ -155,10 +186,12 @@ function initMap(){
 
   // knockout binding
   ko.applyBindings(new ViewModel());
+}
 
-  // listeners to show and hide markers 
-  document.getElementById('show-listings').addEventListener('click', showListings);
-  document.getElementById('hide-listings').addEventListener('click', hideListings);
+// google maps error
+function googleError() {
+"use strict";
+  showMapMessage(true);
 }
 
 
@@ -186,13 +219,13 @@ var ViewModel = function(){
     });
   });
 
-  self.selectPlace = function(marker){
-    populateInfoWindow(marker, infoWindow);
-  };
-
+  self.selectPlace = function(marker) {
+    google.maps.event.trigger(marker, 'click');
+    self.hideSidebar();
+  }
 
   //function for changing sidebar
-  self.visibleSidebar = ko.observable(false),
+  self.visibleSidebar = ko.observable(false);
 
   self.hideSidebar = function() {
     self.visibleSidebar(false);
@@ -200,43 +233,52 @@ var ViewModel = function(){
   }
 
   self.openSidebar = function () {
-    var oppositeSidebarState = !( self.visibleSidebar() );
+    var oppositeSidebarState = !(self.visibleSidebar());
     self.visibleSidebar(oppositeSidebarState);
     return true;
   }
 
-  //foursquare error ko
+  //foursquare and google error ko - by default false
   self.showMessage = ko.observable(false);
   self.showMapMessage = ko.observable(false);
+
+  self.showListings = function(){
+    showListings();
+  }
+  
+  self.hideListings = function(){
+    hideListings();
+  }
 }
 
-  // fill the selected infowindow with data from APIs
-  function populateInfoWindow(marker, infowindow){
-    // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
-      infowindow.setContent(
-        '<h3>' + marker.title + '</h3>'+
-        '<div><p><strong>Address: </strong>' + marker.address + '</p>' +
-        '<p><strong>Phone: </strong>' + marker.phone + '</p>' +
-        '<p><strong>Website: </strong><a target="_blank" href="' + marker.url + '">'+ marker.url + '</a></p>'+
-        '<p><strong>Services: </strong>' + marker.category + '</p>' +
-        '<p>' + 'Rating: ' + marker.rating + '/10, ' + marker.likes + '</p>' + 
-        '<img id="infowindow-image" src=' + marker.photo + ' /></div>'
-        );          
-      marker.setIcon(hoverIcon);
-      infowindow.marker = marker;
-      // Make sure the marker property is cleared if the infowindow is closed.
-      infowindow.addListener('closeclick', function() {
-        infowindow.marker = null;
-        marker.setIcon(defaultIcon);
-      });
-      infowindow.open(map, marker);
-    }
-  }
+  // // fill the selected infowindow with data from APIs
+  // function populateInfoWindow(marker, infowindow){
+  //   // Check to make sure the infowindow is not already opened on this marker.
+  //   if (infowindow.marker != marker) {
+  //     infowindow.setContent(
+  //       '<h3>' + marker.title + '</h3>'+
+  //       '<div><p><strong>Address: </strong>' + marker.address + '</p>' +
+  //       '<p><strong>Phone: </strong>' + marker.phone + '</p>' +
+  //       '<p><strong>Website: </strong><a target="_blank" href="' + marker.url + '">'+ marker.url + '</a></p>'+
+  //       '<p><strong>Services: </strong>' + marker.category + '</p>' +
+  //       '<p><strong>Rating: </strong>' + marker.rating + ' - ' + marker.likes + '</p>' + 
+  //       '<img id="infowindow-image" src=' + marker.photo + ' /></div>'
+  //       );          
+  //     marker.setIcon(hoverIcon);
+  //     infowindow.marker = marker;
+  //     // Make sure the marker property is cleared if the infowindow is closed.
+  //     infowindow.addListener('closeclick', function() {
+  //       infowindow.marker = null;
+  //       marker.setIcon(defaultIcon);
+  //     });
+  //     infowindow.open(map, marker);
+  //   }
+  // }
   self.zoom = function(){
     zoomToArea();
   };
-  
+
+
   //when the button to show markers is clicked
   function showListings() {
     var bounds = new google.maps.LatLngBounds();
