@@ -1,4 +1,28 @@
-## Website Performance Optimization portfolio project
+# Website Performance Optimization portfolio project
+
+## [Live version](https://carolleps.github.io/)
+
+## Optimization made
+
+### index.html
+* Add media="print" to print.css
+* Internal style.css 
+* Load google analytics async
+* optimize the pizzeria image
+* optimize the icon image
+
+### main.js
+* Refactor updatePositions() and resizePizzas() in views/js/main.js
+* Change from querySelectAll to getElementsByClassName or getElementById in views/js/main.js
+* Optimize the image resources
+* Moved few variables outside for-loop
+
+## Technologies used
+
+* Google DevTools
+* PageSpeed Insights
+
+## Original Instructions
 
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 
